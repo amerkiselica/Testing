@@ -1,0 +1,39 @@
+responseJson = pm.response.json()
+results = responseJson.results
+info = responseJson.info
+dob = results[0].dob
+
+//Test 1: Testing the reponse status of API, which has to be 200 (Status: OK)
+
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200)
+});
+
+//Test 2: JSON parameters 'results' and 'info' cannot be empty
+
+pm.test("JSON parameters 'results' and 'info' are not empty", function () {
+    pm.expect(responseJson.results).to.not.be.eql("")
+    pm.expect(responseJson.info).to.not.be.eql("")
+});
+
+//Test 3: Parameter 'date' has to return string, while parameter 'age' needs to return string (located under 'dob')
+
+pm.test("Parameter 'date' returns string and 'age' returns number", function () {
+    pm.expect(dob.date).to.be.a('string')
+    pm.expect(dob.age).to.be.a('number')
+});
+
+//Test 4: Parameter 'version' needs to return "1.4" in every call (located under 'info')
+
+pm.test("Parameter 'version' returns '1.4'", function () {
+    pm.expect(info.version).to.be.eql("1.4")
+})
+
+//Test 5: Objects in parameter 'info' cannot be empty (includes 'seed', 'results', 'page', 'version')
+
+pm.test("Objects 'seed', 'results', 'page' and 'version' are not empty", function () {
+    pm.expect(info.seed).to.not.be.eql("")
+    pm.expect(info.results).to.not.be.eql(null)
+    pm.expect(info.page).to.not.be.eql(null)
+    pm.expect(info.version).to.not.be.eql("")
+})

@@ -1,0 +1,334 @@
+{
+	"info": {
+		"_postman_id": "c91bacd0-2b63-431f-b1ad-845fb9e195d4",
+		"name": "randomuser",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19907540"
+	},
+	"item": [
+		{
+			"name": "random",
+			"item": []
+		},
+		{
+			"name": "https://randomuser.me/api/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"responseJson = pm.response.json()\r",
+							"results = responseJson.results\r",
+							"info = responseJson.info\r",
+							"dob = results[0].dob\r",
+							"\r",
+							"//Test 1: Testing the reponse status of API, which has to be 200 (Status: OK)\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"});\r",
+							"\r",
+							"//Test 2: JSON parameters 'results' and 'info' cannot be empty\r",
+							"\r",
+							"pm.test(\"JSON parameters 'results' and 'info' are not empty\", function () {\r",
+							"    pm.expect(responseJson.results).to.not.be.eql(\"\")\r",
+							"    pm.expect(responseJson.info).to.not.be.eql(\"\")\r",
+							"});\r",
+							"\r",
+							"//Test 3: Parameter 'date' has to return string, while parameter 'age' needs to return string (located under 'dob')\r",
+							"\r",
+							"pm.test(\"Parameter 'date' returns string and 'age' returns number\", function () {\r",
+							"    pm.expect(dob.date).to.be.a('string')\r",
+							"    pm.expect(dob.age).to.be.a('number')\r",
+							"});\r",
+							"\r",
+							"//Test 4: Parameter 'version' needs to return \"1.4\" in every call (located under 'info')\r",
+							"\r",
+							"pm.test(\"Parameter 'version' returns '1.4'\", function () {\r",
+							"    pm.expect(info.version).to.be.eql(\"1.4\")\r",
+							"})\r",
+							"\r",
+							"//Test 5: Objects in parameter 'info' cannot be empty (includes 'seed', 'results', 'page', 'version')\r",
+							"\r",
+							"pm.test(\"Objects 'seed', 'results', 'page' and 'version' are not empty\", function () {\r",
+							"    pm.expect(info.seed).to.not.be.eql(\"\")\r",
+							"    pm.expect(info.results).to.not.be.eql(null)\r",
+							"    pm.expect(info.page).to.not.be.eql(null)\r",
+							"    pm.expect(info.version).to.not.be.eql(\"\")\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://randomuser.me/api/",
+					"protocol": "https",
+					"host": [
+						"randomuser",
+						"me"
+					],
+					"path": [
+						"api",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "https://randomuser.me/api/",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://randomuser.me/api/",
+							"protocol": "https",
+							"host": [
+								"randomuser",
+								"me"
+							],
+							"path": [
+								"api",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 11 Sep 2022 11:43:12 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"47f-P3zyFZCUO0+Y+Xz1uNa33MBAoaQ\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Report-To",
+							"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=wwXMCymNsnppK%2Bo%2BLQxevnIr134eKgXuZIMLGiICrQqretLltmyTDDBE8iTuHF8kzeG1a2gBJsmxwmGZbOFJt98LD4GS1GNOmFLxB%2BvfF5JaQzbHd5d8Taaeu5CaKviS\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+						},
+						{
+							"key": "NEL",
+							"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "CF-RAY",
+							"value": "749024de3fa5c25e-VIE"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"results\": [\n        {\n            \"gender\": \"male\",\n            \"name\": {\n                \"title\": \"Mr\",\n                \"first\": \"Amine\",\n                \"last\": \"Wijntjes\"\n            },\n            \"location\": {\n                \"street\": {\n                    \"number\": 6106,\n                    \"name\": \"Dokter Tazelaarstraat\"\n                },\n                \"city\": \"Rosmalen\",\n                \"state\": \"Zeeland\",\n                \"country\": \"Netherlands\",\n                \"postcode\": \"7035 PU\",\n                \"coordinates\": {\n                    \"latitude\": \"31.5306\",\n                    \"longitude\": \"-60.5128\"\n                },\n                \"timezone\": {\n                    \"offset\": \"-10:00\",\n                    \"description\": \"Hawaii\"\n                }\n            },\n            \"email\": \"amine.wijntjes@example.com\",\n            \"login\": {\n                \"uuid\": \"0f196be2-441e-4711-86fd-7bcd0a6d1458\",\n                \"username\": \"yellowswan498\",\n                \"password\": \"gibson\",\n                \"salt\": \"ppe3Efhr\",\n                \"md5\": \"1ca1c4928b79918bbfa06e90b6b323d6\",\n                \"sha1\": \"f59ad2e1949c8f1ef3caa5e11793f1d4276dfb43\",\n                \"sha256\": \"51ff4506fd264bc43fc8be38c354026f213940dac9328a1be84f865abb1f7ca8\"\n            },\n            \"dob\": {\n                \"date\": \"1987-02-09T09:49:23.394Z\",\n                \"age\": 35\n            },\n            \"registered\": {\n                \"date\": \"2017-05-25T09:32:55.361Z\",\n                \"age\": 5\n            },\n            \"phone\": \"(0947) 630101\",\n            \"cell\": \"(06) 23355819\",\n            \"id\": {\n                \"name\": \"BSN\",\n                \"value\": \"95112830\"\n            },\n            \"picture\": {\n                \"large\": \"https://randomuser.me/api/portraits/men/85.jpg\",\n                \"medium\": \"https://randomuser.me/api/portraits/med/men/85.jpg\",\n                \"thumbnail\": \"https://randomuser.me/api/portraits/thumb/men/85.jpg\"\n            },\n            \"nat\": \"NL\"\n        }\n    ],\n    \"info\": {\n        \"seed\": \"939bf1b01bb5d409\",\n        \"results\": 1,\n        \"page\": 1,\n        \"version\": \"1.4\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "https://randomuser.me/api/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"responseJson = pm.response.json()\r",
+							"results = responseJson.results\r",
+							"info = responseJson.info\r",
+							"dob = results[0].dob\r",
+							"\r",
+							"//Test 1: Testing the reponse status of API, which has to be 200 (Status: OK)\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"});\r",
+							"\r",
+							"//Test 2: JSON parameters 'results' and 'info' cannot be empty\r",
+							"\r",
+							"pm.test(\"JSON parameters 'results' and 'info' are not empty\", function () {\r",
+							"    pm.expect(responseJson.results).to.not.be.eql(\"\")\r",
+							"    pm.expect(responseJson.info).to.not.be.eql(\"\")\r",
+							"});\r",
+							"\r",
+							"//Test 3: Parameter 'date' has to return string, while parameter 'age' needs to return string (located under 'dob')\r",
+							"\r",
+							"pm.test(\"Parameter 'date' returns string and 'age' returns number\", function () {\r",
+							"    pm.expect(dob.date).to.be.a('string')\r",
+							"    pm.expect(dob.age).to.be.a('number')\r",
+							"});\r",
+							"\r",
+							"//Test 4: Parameter 'version' needs to return \"1.4\" in every call (located under 'info')\r",
+							"\r",
+							"pm.test(\"Parameter 'version' returns '1.4'\", function () {\r",
+							"    pm.expect(info.version).to.be.eql(\"1.4\")\r",
+							"})\r",
+							"\r",
+							"//Test 5: Objects in parameter 'info' cannot be empty (includes 'seed', 'results', 'page', 'version')\r",
+							"\r",
+							"pm.test(\"Objects 'seed', 'results', 'page' and 'version' are not empty\", function () {\r",
+							"    pm.expect(info.seed).to.not.be.eql(\"\")\r",
+							"    pm.expect(info.results).to.not.be.eql(null)\r",
+							"    pm.expect(info.page).to.not.be.eql(null)\r",
+							"    pm.expect(info.version).to.not.be.eql(\"\")\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://randomuser.me/api/",
+					"protocol": "https",
+					"host": [
+						"randomuser",
+						"me"
+					],
+					"path": [
+						"api",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "https://randomuser.me/api/",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://randomuser.me/api/",
+							"protocol": "https",
+							"host": [
+								"randomuser",
+								"me"
+							],
+							"path": [
+								"api",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 11 Sep 2022 11:43:12 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"47f-P3zyFZCUO0+Y+Xz1uNa33MBAoaQ\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Report-To",
+							"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=wwXMCymNsnppK%2Bo%2BLQxevnIr134eKgXuZIMLGiICrQqretLltmyTDDBE8iTuHF8kzeG1a2gBJsmxwmGZbOFJt98LD4GS1GNOmFLxB%2BvfF5JaQzbHd5d8Taaeu5CaKviS\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+						},
+						{
+							"key": "NEL",
+							"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "CF-RAY",
+							"value": "749024de3fa5c25e-VIE"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"results\": [\n        {\n            \"gender\": \"male\",\n            \"name\": {\n                \"title\": \"Mr\",\n                \"first\": \"Amine\",\n                \"last\": \"Wijntjes\"\n            },\n            \"location\": {\n                \"street\": {\n                    \"number\": 6106,\n                    \"name\": \"Dokter Tazelaarstraat\"\n                },\n                \"city\": \"Rosmalen\",\n                \"state\": \"Zeeland\",\n                \"country\": \"Netherlands\",\n                \"postcode\": \"7035 PU\",\n                \"coordinates\": {\n                    \"latitude\": \"31.5306\",\n                    \"longitude\": \"-60.5128\"\n                },\n                \"timezone\": {\n                    \"offset\": \"-10:00\",\n                    \"description\": \"Hawaii\"\n                }\n            },\n            \"email\": \"amine.wijntjes@example.com\",\n            \"login\": {\n                \"uuid\": \"0f196be2-441e-4711-86fd-7bcd0a6d1458\",\n                \"username\": \"yellowswan498\",\n                \"password\": \"gibson\",\n                \"salt\": \"ppe3Efhr\",\n                \"md5\": \"1ca1c4928b79918bbfa06e90b6b323d6\",\n                \"sha1\": \"f59ad2e1949c8f1ef3caa5e11793f1d4276dfb43\",\n                \"sha256\": \"51ff4506fd264bc43fc8be38c354026f213940dac9328a1be84f865abb1f7ca8\"\n            },\n            \"dob\": {\n                \"date\": \"1987-02-09T09:49:23.394Z\",\n                \"age\": 35\n            },\n            \"registered\": {\n                \"date\": \"2017-05-25T09:32:55.361Z\",\n                \"age\": 5\n            },\n            \"phone\": \"(0947) 630101\",\n            \"cell\": \"(06) 23355819\",\n            \"id\": {\n                \"name\": \"BSN\",\n                \"value\": \"95112830\"\n            },\n            \"picture\": {\n                \"large\": \"https://randomuser.me/api/portraits/men/85.jpg\",\n                \"medium\": \"https://randomuser.me/api/portraits/med/men/85.jpg\",\n                \"thumbnail\": \"https://randomuser.me/api/portraits/thumb/men/85.jpg\"\n            },\n            \"nat\": \"NL\"\n        }\n    ],\n    \"info\": {\n        \"seed\": \"939bf1b01bb5d409\",\n        \"results\": 1,\n        \"page\": 1,\n        \"version\": \"1.4\"\n    }\n}"
+				}
+			]
+		}
+	]
+}
